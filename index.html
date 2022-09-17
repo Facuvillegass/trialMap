@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <button id="btn">BTNGet</button>
+  <div id="div"></div>
+  <body>
+    <script>
+      const success = (e) => {
+        console.log(e.coords)
+      };
+
+      navigator.geolocation.getCurrentPosition(success);
+      let btnGetImage = document.getElementById("btn");
+      let div = document.getElementById("div");
+
+      btnGetImage.addEventListener("click", async () => {
+        let data = await fetch(
+          "https://sheet.best/api/sheets/fc1cea9d-cc5f-401e-9a46-cc1c7a0de830"
+        );
+        let dataOk = await data.json();
+
+        dataOk.map((img) => {
+          let imgCompleta = img.img + img.img2 + img.img3;
+          div.innerHTML = `<embed src="${imgCompleta}" />`;
+        });
+
+        // dataOk.map((imagen) => {
+        //   if (imagen.nombreImg == nombreImg) {
+        //     let imgCompleta = imagen.img + imagen.img2 + imagen.img3;
+        //
+        //   }
+        // });
+
+        console.log(dataOk);
+      });
+    </script>
+  </body>
+</html>
